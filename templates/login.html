@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#clickMeBtn").submit(function(event) { // Changed to listen to form submission
+            event.preventDefault(); // Prevent default form submission
+
+            var username = $("#username").val();
+            var password = $("#password").val();
+
+            // Perform client-side validation if needed
+
+            // Submit the form via AJAX
+            $.ajax({
+                type: "POST",
+                url: "/login_employee",
+                data: { username: username, password: password },
+                success: function(response) {
+                    // Redirect to the appropriate page based on server response
+                    window.location.href = response.redirect_url;
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response from server, e.g., display error message
+                    var errorMessage = xhr.responseJSON.message; // Assuming server sends error message in JSON format
+                    alert("Error: " + errorMessage);
+                }
+            });
+        });
+    });
+</script>
+{% endblock head %}
+
+{% block body %}
+<form id="loginForm" action="/login_employee" method="post"> <!-- Replace with the actual form action -->
+    <div class='form-container'>
+        <label for="username">UserName</label>
+        <input type="text" id="username" name="username" required>    
+    
+        <label for="password">Password</label>
+        <input type="text" id="password" name="password" required>
+       
+        <!-- <button type="submit">Login</button> -->
+        <button id="clickMeBtn">Login</button>
+    </div>
+</form>
+{% endblock body %}

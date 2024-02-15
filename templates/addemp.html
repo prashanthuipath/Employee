@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#clickMeBtn").click(function () {
+        // console.log("Click Me button clicked!");
+        window.location.href = "/view_employee";
+        
+    });
+});
+</script>
+
+<h1>Add Employee</h1>
+
+<div class='view-btn'>
+    <button id="clickMeBtn">View Employee</button>
+</div>
+
+
+{% endblock head %}
+
+{% block body %}
+
+<form action="/add_employee" method="post"> <!-- Replace with the actual form action -->
+    <div class='form-container'>
+    <label for="employeeID">Employee ID</label>
+    <input type="text" id="employeeID" name="employeeID" required disabled placeholder="{{data}}">
+  
+    
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+   
+    
+    <label for="gender">Gender</label>
+    <select id="gender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+    
+    
+    <label for="skill">Skill</label>
+    <input type="text" id="skill" name="skill" required>
+   
+    
+    <input type="submit" value="submit">
+</div>
+</form>
+
+{% endblock body %}
